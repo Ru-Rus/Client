@@ -1,22 +1,22 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const StyleButton = styled.button`
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-  `;
+const Wrapper = styled.div`
+  text-align: center;
+  background-color: coral;
+  .content {
+    color: blue;
+    font-size: 20px;
+    background-color: lightgray;
+  }
+`;
 
 const Landing = () => {
   return (
-    <div>
+    <Wrapper>
       <h1>Landing Page</h1>
-      <StyleButton> Click Me </StyleButton>
-    </div>
+      <div className='content'>Some Content</div>
+    </Wrapper>
   )
 }
 
