@@ -7,7 +7,7 @@ const Error = () => {
       <h1>Error</h1>
       <Link to="/">Go to Home</Link>
     </div>
-  )
-}
+  );
+};
 
 export default Error
