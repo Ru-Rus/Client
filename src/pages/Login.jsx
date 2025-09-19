@@ -17,7 +17,7 @@ const Login = () => {
           Not a member yet? 
           <Link to='/register'>Register</Link>
         </a>
-        hfjfjfjfgjgfjfgjfjh
+        
       </form>
     </Wrapper>
   )
