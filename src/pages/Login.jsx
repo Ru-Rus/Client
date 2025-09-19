@@ -1,13 +1,17 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-
+import Wrapper from '../assets/wrappers/RegisterAndLoginPage';
+import { Logo } from '../assets/components';
 
 const Login = () => {
   return (
-    <div>
-      <h1>Login</h1>
-      <Link to="/register">Don't have an account? Register here</Link>
-    </div>
+    <Wrapper>
+      <form className='form'>
+        <Logo />
+        <h4>Login</h4>
+    
+      </form>
+    </Wrapper>
   )
 }
 
