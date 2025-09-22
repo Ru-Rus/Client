@@ -1,1 +1,1 @@
-console.log('nasan aking salamin')
+console.log('nasan aking salamin.')
