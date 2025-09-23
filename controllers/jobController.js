@@ -1,6 +1,6 @@
 import 'express-async-errors';
-
-
+import { StatusCodes } from 'http-status-codes';
+import { notFoundError } from '../errors/customErrors.js';
 // import { nanoid } from 'nanoid';
 
 import Job from '../models/jobModels.js'
@@ -16,7 +16,8 @@ import Job from '../models/jobModels.js'
 
 export const getAllJobs = async  (req,res) => {
     const jobs = await Job.find({});
-    res.status(200).json({jobs})
+    // res.status(200).json({jobs})
+    res.status(StatusCodes.OK).json({jobs});
 };
 
 export const createJob = async  (req,res) => {
@@ -32,7 +33,8 @@ export const createJob = async  (req,res) => {
     // jobs.push(job)
 
     const job = await Job.create({company,position});
-    res.status(201).json({job})
+    // res.status(201).json({job})
+    res.status(StatusCodes.CREATED).json({job})
 };
 
 export const getJob = async (req,res) => {
@@ -41,9 +43,12 @@ export const getJob = async (req,res) => {
    const job = await Job.findById(id);
    console.log(job);
    if(!job){
-    return res.status(404).json({msg: ` NO JOB WITH ID: ${id}`});
+    // return res.status(404).json({msg: ` NO JOB WITH ID: ${id}`});
+    throw new notFoundError(` NO JOB WITH ID: ${id}`)
    }
-   res.status(200).json({job});
+   res.status(StatusCodes.OK).json({jobs});
+//    res.status(200).json({job});
+
 };
 
 export const editJob = async (req,res) => {
@@ -64,7 +69,8 @@ export const editJob = async (req,res) => {
     }
     // job.company = company;
     // job.position = position;
-    res.status(200).json({message: 'JOB EDITED', job: updatedJob});
+    //res.status(200).json({message: 'JOB EDITED', job: updatedJob});
+    res.status(StatusCodes.OK).json({message: 'JOB EDITED', job: updatedJob});
 };
 
 export const deleteJob = async  (req,res) => {
@@ -79,5 +85,6 @@ export const deleteJob = async  (req,res) => {
     // const newJobs =jobs.filter((job) => job.id !== id);
     // jobs = newJobs;
 
-    res.status(200).json({message: 'JOB DELETED', job: removedJob});
+    //res.status(200).json({message: 'JOB DELETED', job: removedJob});
+    res.status(StatusCodes.OK).json({message: 'JOB DELETED', job: removedJob});
 };
