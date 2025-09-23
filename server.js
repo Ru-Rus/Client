@@ -2,12 +2,9 @@ import * as dotenv from 'dotenv'
 dotenv.config();
 import morgan from 'morgan'
 import express from 'express';
-import { nanoid } from 'nanoid';
 
-let jobs = [
-    {id:nanoid(), company: 'xxx', position: 'f-end'},
-    {id:nanoid(), company: 'yyy', position: 'b-end'},
-];
+
+import jobRouter from './routes/jobRouter.js'
 
 const app = express();
 
@@ -30,32 +27,20 @@ app.post('/',(req,res) =>{
     res.json({message:'Received Payment for this illegal transactions',data: req.body})
 });
 
-// GET ALL JOBS 
-app.get('/api/v1/jobs', (req,res) => {
-    res.status(200).json({jobs})
+
+app.use('/api/v1/jobs', jobRouter);
+
+
+// NOT FOUND / ERROR 
+app.use('*', (req,res) => {
+    res.status(404).json({message: 'NOT FOUND'})
 });
 
-// CREATE A JOB
-app.post('/api/v1/jobs', (req,res) => {
-    const {company, position} = req.body
-    if(!company || !position){
-        return res.status(400).json({message: 'please provide company and position'})
-    }
-    const id = nanoid(10)
-    const job = {id,company,position};
-    jobs.push(job)
-    res.status(201).json({job})
-});
+app.use((err,req,res,next) =>{
+    console.log(err)
+    res.status(500).json({message: 'SOMETHING WENT WRONG'})
+})
 
-// GET A JOB
-app.get('/api/v1/jobs/:id', (req,res) => {
-   const {id} = req.params
-   const job = jobs.find((job) => job.id === id)
-   if(!job){
-    return res.status(404).json({msg: 'no job with id: ${id}'});
-   }
-   res.status(200).json({job});
-});
 
 const port = process.env.PORT || 5100
 
