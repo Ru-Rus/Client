@@ -5,6 +5,7 @@ import express from 'express';
 
 
 import jobRouter from './routes/jobRouter.js'
+import mongoose from 'mongoose';
 
 const app = express();
 
@@ -41,10 +42,19 @@ app.use((err,req,res,next) =>{
     res.status(500).json({message: 'SOMETHING WENT WRONG'})
 })
 
-
 const port = process.env.PORT || 5100
 
-app.listen(port, () => {
+try {
+    await mongoose.connect(process.env.MONGO_URL);
+    app.listen(port, () => {
     console.log (`Running as ${port} what am i doing, SEND HELP!!`) 
+});
+}
+catch (error){
+    console.log(error);
+    process.exit(1);
+}
 
-})
+
+
+
